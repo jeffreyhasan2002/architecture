@@ -85,7 +85,11 @@ const COLD_START = [
   },
 ]
 
-function PhaseBlock({ phase, index, type }: { phase: typeof PHASES[0]; index: number; type: 'scale' | 'city' }) {
+type ScalePhase = typeof PHASES[0]
+type CityPhase = typeof COLD_START[0]
+type AnyPhase = ScalePhase | CityPhase
+
+function PhaseBlock({ phase, index, type }: { phase: AnyPhase; index: number; type: 'scale' | 'city' }) {
   const [visible, setVisible] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
 
@@ -97,6 +101,9 @@ function PhaseBlock({ phase, index, type }: { phase: typeof PHASES[0]; index: nu
     if (ref.current) observer.observe(ref.current)
     return () => observer.disconnect()
   }, [])
+
+  const scalePhase = type === 'scale' ? (phase as ScalePhase) : null
+  const cityPhase  = type === 'city'  ? (phase as CityPhase)  : null
 
   return (
     <div
@@ -128,25 +135,25 @@ function PhaseBlock({ phase, index, type }: { phase: typeof PHASES[0]; index: nu
           {phase.label}
         </div>
         <div style={{ fontSize: '12px', color: 'var(--color-muted)', marginBottom: '8px' }}>
-          {type === 'scale' ? (phase as typeof PHASES[0]).scale : ''}
+          {scalePhase?.scale ?? ''}
         </div>
-        {type === 'scale' ? (
+        {scalePhase ? (
           <ul style={{ fontSize: '13px', color: 'var(--color-ink)', paddingLeft: '16px', margin: 0 }}>
-            {(phase as typeof PHASES[0]).items.map((item, i) => (
+            {scalePhase.items.map((item, i) => (
               <li key={i} style={{ marginBottom: '2px' }}>{item}</li>
             ))}
           </ul>
         ) : (
           <p style={{ fontSize: '13px', color: 'var(--color-ink)', margin: 0 }}>
-            {(phase as typeof COLD_START[0]).desc}
+            {cityPhase?.desc}
           </p>
         )}
-        {type === 'scale' && (phase as typeof PHASES[0]).trigger && (
+        {scalePhase?.trigger && (
           <div style={{ marginTop: '8px', fontSize: '11px', color: 'var(--color-muted)', fontStyle: 'italic' }}>
-            Trigger: {(phase as typeof PHASES[0]).trigger}
+            Trigger: {scalePhase.trigger}
           </div>
         )}
-        {type === 'city' && (
+        {cityPhase && (
           <div style={{
             marginTop: '8px',
             fontSize: '11px',
@@ -154,7 +161,7 @@ function PhaseBlock({ phase, index, type }: { phase: typeof PHASES[0]; index: nu
             fontWeight: 600,
             color: 'var(--color-confirmed)',
           }}>
-            Gate: {(phase as typeof COLD_START[0]).gate}
+            Gate: {cityPhase.gate}
           </div>
         )}
       </div>
@@ -167,7 +174,7 @@ export default function RoadmapTimeline({ variant = 'scale' }: { variant?: 'scal
   return (
     <div style={{ margin: '1.5rem 0', maxWidth: '680px' }}>
       {data.map((phase, i) => (
-        <PhaseBlock key={phase.id} phase={phase as typeof PHASES[0]} index={i} type={variant} />
+        <PhaseBlock key={phase.id} phase={phase} index={i} type={variant} />
       ))}
     </div>
   )
