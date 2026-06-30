@@ -71,8 +71,8 @@ export default function TrustOfficerPage() {
         </div>
       </section>
 
-      {/* Dashboard */}
-      <section style={{ padding: '0 24px 80px', maxWidth: '1100px', margin: '0 auto' }}>
+      {/* Dashboard with tabs */}
+      <section style={{ padding: '0 24px 64px', maxWidth: '1100px', margin: '0 auto' }}>
         <h2 style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 800, fontSize: '1.8rem', letterSpacing: '-0.025em', marginBottom: '28px' }}>Trust Officer Console Preview</h2>
         <div style={{ background: 'var(--color-surface)', borderRadius: '20px', border: '1px solid var(--color-hairline)', overflow: 'hidden', boxShadow: '0 8px 40px rgba(0,0,0,0.08)' }}>
           <div style={{ background: '#FFF1F0', borderBottom: '1px solid rgba(220,38,38,0.2)', padding: '14px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -82,30 +82,115 @@ export default function TrustOfficerPage() {
               <span style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 700, fontSize: '11px', color: '#DC2626', background: '#FFF1F0', padding: '4px 10px', borderRadius: '100px', border: '1px solid #DC262633' }}>1 ruling due today</span>
             </div>
           </div>
-          <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
-            {DISPUTES.map(d => (
-              <div key={d.id} style={{ padding: '18px', borderRadius: '14px', background: 'var(--color-bg)', border: `1px solid ${d.status === 'Resolved' ? 'var(--color-hairline)' : '#DC262622'}` }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
-                  <div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-                      <span style={{ fontFamily: 'var(--font-jetbrains-mono)', fontSize: '11px', color: 'var(--color-muted)' }}>{d.id}</span>
-                      <span style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 700, fontSize: '11px', color: d.statusColor, background: d.statusBg, padding: '3px 10px', borderRadius: '100px' }}>{d.status}</span>
+
+          {/* Tabs */}
+          <div style={{ display: 'flex', borderBottom: '1px solid var(--color-hairline)', padding: '0 24px' }}>
+            {[
+              { id: 'disputes', label: 'Active',    badge: '2' },
+              { id: 'evidence', label: 'Evidence',  badge: '1' },
+              { id: 'resolved', label: 'Resolved',  badge: null },
+              { id: 'escalated', label: 'Escalated', badge: null },
+            ].map(t => (
+              <button key={t.id} onClick={() => setDashTab(t.id)} style={{
+                padding: '14px 16px', fontFamily: 'var(--font-space-grotesk)', fontWeight: 600, fontSize: '13px',
+                color: dashTab === t.id ? '#DC2626' : 'var(--color-muted)',
+                background: 'none', border: 'none', cursor: 'pointer',
+                borderBottom: dashTab === t.id ? '2px solid #DC2626' : '2px solid transparent',
+                marginBottom: '-1px', display: 'flex', alignItems: 'center', gap: '6px',
+              }}>
+                {t.label}
+                {t.badge && <span style={{ fontFamily: 'var(--font-jetbrains-mono)', fontSize: '10px', background: '#DC2626', color: '#fff', padding: '1px 6px', borderRadius: '100px', fontWeight: 700 }}>{t.badge}</span>}
+              </button>
+            ))}
+          </div>
+
+          <div style={{ padding: '24px' }}>
+            {dashTab === 'disputes' && (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                {DISPUTES.filter(d => d.status !== 'Resolved').map(d => (
+                  <div key={d.id} style={{ padding: '18px', borderRadius: '14px', background: 'var(--color-bg)', border: `1px solid #DC262622` }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
+                      <div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+                          <span style={{ fontFamily: 'var(--font-jetbrains-mono)', fontSize: '11px', color: 'var(--color-muted)' }}>{d.id}</span>
+                          <span style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 700, fontSize: '11px', color: d.statusColor, background: d.statusBg, padding: '3px 10px', borderRadius: '100px' }}>{d.status}</span>
+                        </div>
+                        <div style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 700, fontSize: '14px', color: 'var(--color-ink)', marginBottom: '4px' }}>{d.type}</div>
+                        <div style={{ fontFamily: 'var(--font-inter)', fontSize: '12px', color: 'var(--color-muted)' }}>{d.parties}</div>
+                      </div>
+                      <div style={{ textAlign: 'right' }}>
+                        <div style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 800, fontSize: '15px', color: '#DC2626' }}>₹{d.value.toLocaleString()}</div>
+                        <div style={{ fontFamily: 'var(--font-inter)', fontSize: '11px', color: d.deadline === 'Due today' ? '#DC2626' : 'var(--color-muted)' }}>{d.opened} · {d.deadline}</div>
+                      </div>
                     </div>
-                    <div style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 700, fontSize: '14px', color: 'var(--color-ink)', marginBottom: '4px' }}>{d.type}</div>
-                    <div style={{ fontFamily: 'var(--font-inter)', fontSize: '12px', color: 'var(--color-muted)' }}>{d.parties}</div>
+                    <div style={{ display: 'flex', gap: '8px' }}>
+                      <button style={{ padding: '7px 16px', borderRadius: '8px', background: '#DC2626', color: '#fff', border: 'none', fontFamily: 'var(--font-space-grotesk)', fontWeight: 700, fontSize: '12px', cursor: 'pointer' }}>Review Case</button>
+                      <button style={{ padding: '7px 16px', borderRadius: '8px', background: 'transparent', color: '#DC2626', border: '1px solid #DC262633', fontFamily: 'var(--font-space-grotesk)', fontWeight: 700, fontSize: '12px', cursor: 'pointer' }}>Issue Ruling</button>
+                    </div>
                   </div>
-                  <div style={{ textAlign: 'right' }}>
-                    <div style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 800, fontSize: '15px', color: '#DC2626' }}>₹{d.value.toLocaleString()}</div>
-                    <div style={{ fontFamily: 'var(--font-inter)', fontSize: '11px', color: d.deadline === 'Due today' ? '#DC2626' : 'var(--color-muted)' }}>{d.opened} · {d.deadline}</div>
-                    {d.ruling && <div style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 700, fontSize: '11px', color: '#059669', marginTop: '4px' }}>Ruling: {d.ruling}</div>}
+                ))}
+              </div>
+            )}
+            {dashTab === 'evidence' && (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                {[
+                  { case: 'DSP-0419', party: 'Client (Rohit K.)', items: ['Chat log (47 messages)', 'Booking confirmation receipt'], submitted: '18h ago', pending: 'Creator evidence due in 6h' },
+                  { case: 'DSP-0419', party: 'Creator (Vikram D.)', items: ['Partial gallery link (32 images)'], submitted: 'Due in 6h', pending: null },
+                ].map((e, i) => (
+                  <div key={i} style={{ padding: '14px 16px', borderRadius: '12px', background: 'var(--color-bg)', border: '1px solid var(--color-hairline)' }}>
+                    <div style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 700, fontSize: '12px', color: 'var(--color-ink)', marginBottom: '6px' }}>{e.case} · {e.party}</div>
+                    {e.items.map(item => (
+                      <div key={item} style={{ fontFamily: 'var(--font-inter)', fontSize: '12px', color: 'var(--color-muted)', padding: '4px 8px', background: '#F8FAFC', borderRadius: '6px', marginBottom: '4px' }}>📎 {item}</div>
+                    ))}
+                    {e.pending && <div style={{ fontFamily: 'var(--font-inter)', fontSize: '11px', color: '#DC2626', marginTop: '6px' }}>⏳ {e.pending}</div>}
+                  </div>
+                ))}
+              </div>
+            )}
+            {dashTab === 'resolved' && (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <div style={{ padding: '18px', borderRadius: '14px', background: 'var(--color-bg)', border: '1px solid var(--color-hairline)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                    <div>
+                      <span style={{ fontFamily: 'var(--font-jetbrains-mono)', fontSize: '11px', color: 'var(--color-muted)' }}>DSP-0415</span>
+                      <div style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 700, fontSize: '14px', color: 'var(--color-ink)', marginBottom: '4px' }}>Partial delivery</div>
+                      <div style={{ fontFamily: 'var(--font-inter)', fontSize: '12px', color: 'var(--color-muted)' }}>Client (Preethi M.) vs Creator (Studio Lens)</div>
+                    </div>
+                    <div style={{ textAlign: 'right' }}>
+                      <div style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 800, fontSize: '14px', color: '#059669' }}>Resolved</div>
+                      <div style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 700, fontSize: '11px', color: '#059669' }}>Ruling: 60/40 split · ₹48,000</div>
+                    </div>
                   </div>
                 </div>
-                {d.status !== 'Resolved' && (
-                  <div style={{ display: 'flex', gap: '8px' }}>
-                    <button style={{ padding: '7px 16px', borderRadius: '8px', background: '#DC2626', color: '#fff', border: 'none', fontFamily: 'var(--font-space-grotesk)', fontWeight: 700, fontSize: '12px', cursor: 'pointer' }}>Review Case</button>
-                    <button style={{ padding: '7px 16px', borderRadius: '8px', background: 'transparent', color: '#DC2626', border: '1px solid #DC262633', fontFamily: 'var(--font-space-grotesk)', fontWeight: 700, fontSize: '12px', cursor: 'pointer' }}>Issue Ruling</button>
-                  </div>
-                )}
+              </div>
+            )}
+            {dashTab === 'escalated' && (
+              <div style={{ padding: '32px', textAlign: 'center' }}>
+                <div style={{ fontSize: '32px', marginBottom: '10px' }}>📤</div>
+                <div style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 700, fontSize: '14px', color: 'var(--color-ink)', marginBottom: '6px' }}>No escalations pending</div>
+                <div style={{ fontFamily: 'var(--font-inter)', fontSize: '12px', color: 'var(--color-muted)' }}>Cases involving legal, regulatory, or criminal matters are escalated to Admin. No active escalations from this officer's queue.</div>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* Onboarding section */}
+      <section id="onboarding" style={{ padding: '0 24px 64px', maxWidth: '1100px', margin: '0 auto' }}>
+        <div style={{ background: 'linear-gradient(135deg,#FFF1F0,#FEE2E2)', borderRadius: '20px', padding: '40px', border: '1px solid rgba(220,38,38,0.15)' }}>
+          <h2 style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 800, fontSize: '1.6rem', letterSpacing: '-0.025em', marginBottom: '8px', color: '#7F1D1D' }}>Trust Officer Onboarding</h2>
+          <p style={{ fontFamily: 'var(--font-inter)', fontSize: '0.95rem', color: '#DC2626', marginBottom: '28px' }}>Trust Officers are appointed by Admins. The role requires legal/policy training before accessing dispute resolution tools.</p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))', gap: '14px' }}>
+            {[
+              { step: '1', icon: '📧', label: 'Role invite', desc: 'Admin sends a scoped invite. No public registration — internal appointment only.' },
+              { step: '2', icon: '🔐', label: 'Setup credentials', desc: '2FA required. Trust Officers have escrow-level access; security is mandatory.' },
+              { step: '3', icon: '⚖️', label: 'Dispute training', desc: 'Complete dispute resolution protocol and escrow release policy guidelines.' },
+              { step: '4', icon: '💸', label: 'Console access', desc: 'Access granted: dispute queue, evidence viewer, ruling tools, and escrow release.' },
+            ].map(s => (
+              <div key={s.step} style={{ padding: '18px', borderRadius: '14px', background: 'rgba(255,255,255,0.7)', border: '1px solid rgba(220,38,38,0.15)' }}>
+                <span style={{ fontSize: '24px', display: 'block', marginBottom: '10px' }}>{s.icon}</span>
+                <div style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 700, fontSize: '13px', color: '#7F1D1D', marginBottom: '6px' }}>Step {s.step} · {s.label}</div>
+                <div style={{ fontFamily: 'var(--font-inter)', fontSize: '12px', color: '#DC2626', lineHeight: 1.6 }}>{s.desc}</div>
               </div>
             ))}
           </div>

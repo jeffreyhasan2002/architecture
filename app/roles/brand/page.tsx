@@ -32,6 +32,23 @@ export default function BrandPage() {
           <Link href="#onboarding" style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 700, fontSize: '15px', color: '#fff', background: '#0891B2', textDecoration: 'none', padding: '13px 28px', borderRadius: '10px', boxShadow: '0 4px 18px rgba(8,145,178,0.32)' }}>Start Onboarding →</Link>
           <Link href="/roles/content-creator" style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 700, fontSize: '15px', color: 'var(--color-ink)', background: 'var(--color-surface)', textDecoration: 'none', padding: '13px 28px', borderRadius: '10px', border: '1px solid var(--color-hairline)' }}>I'm a Content Creator →</Link>
         </div>
+
+        {/* Stats strip */}
+        <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', flexWrap: 'wrap', marginTop: '36px' }}>
+          {[
+            { val: '50K+',     label: 'Verified creators',         icon: '🎬' },
+            { val: 'AI',       label: 'Fit Score matching',         icon: '📊' },
+            { val: '₹0',       label: 'Fee until deal confirmed',  icon: '✅' },
+            { val: 'T+1',      label: 'Creator payout after delivery', icon: '💸' },
+            { val: 'Escrow',   label: 'Protected payments',         icon: '🔒' },
+          ].map(s => (
+            <div key={s.label} style={{ padding: '10px 18px', borderRadius: '12px', background: 'var(--color-surface)', border: '1px solid var(--color-hairline)', textAlign: 'center', minWidth: '110px' }}>
+              <div style={{ fontSize: '16px', marginBottom: '4px' }}>{s.icon}</div>
+              <div style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 800, fontSize: '1rem', color: '#0891B2', letterSpacing: '-0.02em' }}>{s.val}</div>
+              <div style={{ fontFamily: 'var(--font-inter)', fontSize: '10px', color: 'var(--color-muted)', marginTop: '2px' }}>{s.label}</div>
+            </div>
+          ))}
+        </div>
       </section>
 
       <section style={{ padding: '0 24px 64px', maxWidth: '1100px', margin: '0 auto' }}>

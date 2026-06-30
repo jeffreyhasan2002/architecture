@@ -37,13 +37,30 @@ export default function VisitorPage() {
         <p style={{ fontFamily: 'var(--font-inter)', fontSize: '1.1rem', color: 'var(--color-muted)', maxWidth: '600px', margin: '0 auto 32px', lineHeight: 1.7 }}>
           As a Visitor, you have complete access to search and discover every creator, space, and gear listing on Sceneora — completely free, no sign-up required. Explore, estimate, and shortlist before you ever commit.
         </p>
-        <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '36px' }}>
           <Link href="/roles/client#onboarding" style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 700, fontSize: '14px', color: '#fff', background: '#0F62FE', textDecoration: 'none', padding: '12px 28px', borderRadius: '10px', boxShadow: '0 2px 12px rgba(15,98,254,0.3)' }}>
             Create Free Account →
           </Link>
-          <Link href="/" style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 700, fontSize: '14px', color: 'var(--color-ink)', background: 'var(--color-surface)', textDecoration: 'none', padding: '12px 28px', borderRadius: '10px', border: '1px solid var(--color-hairline)' }}>
-            Start Searching
+          <Link href="/creators" style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 700, fontSize: '14px', color: 'var(--color-ink)', background: 'var(--color-surface)', textDecoration: 'none', padding: '12px 28px', borderRadius: '10px', border: '1px solid var(--color-hairline)' }}>
+            Browse Creators
           </Link>
+        </div>
+
+        {/* Stats strip */}
+        <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', flexWrap: 'wrap' }}>
+          {[
+            { val: '3M+',      label: 'Creator profiles',          icon: '📷' },
+            { val: '200+',     label: 'Cities covered',            icon: '🌏' },
+            { val: '₹0',       label: 'Cost to browse',            icon: '✅' },
+            { val: '4.9★',     label: 'Avg platform rating',       icon: '⭐' },
+            { val: '100%',     label: 'No sign-up to search',      icon: '🔓' },
+          ].map(s => (
+            <div key={s.label} style={{ padding: '10px 18px', borderRadius: '12px', background: 'var(--color-surface)', border: '1px solid var(--color-hairline)', textAlign: 'center', minWidth: '110px' }}>
+              <div style={{ fontSize: '16px', marginBottom: '4px' }}>{s.icon}</div>
+              <div style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 800, fontSize: '1.1rem', color: '#64748B', letterSpacing: '-0.025em' }}>{s.val}</div>
+              <div style={{ fontFamily: 'var(--font-inter)', fontSize: '10px', color: 'var(--color-muted)', marginTop: '2px' }}>{s.label}</div>
+            </div>
+          ))}
         </div>
       </section>
 

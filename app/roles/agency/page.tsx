@@ -71,6 +71,23 @@ export default function AgencyPage() {
           <Link href="#onboarding" style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 700, fontSize: '15px', color: '#fff', background: '#1D4ED8', textDecoration: 'none', padding: '13px 28px', borderRadius: '10px', boxShadow: '0 4px 18px rgba(29,78,216,0.32)' }}>Start Onboarding →</Link>
           <Link href="#agency-vs-studio" style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 700, fontSize: '15px', color: 'var(--color-ink)', background: 'var(--color-surface)', textDecoration: 'none', padding: '13px 28px', borderRadius: '10px', border: '1px solid var(--color-hairline)' }}>Agency vs Studio →</Link>
         </div>
+
+        {/* Stats strip */}
+        <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', flexWrap: 'wrap', marginTop: '36px' }}>
+          {[
+            { val: '200+',   label: 'Freelancers per roster max',  icon: '👥' },
+            { val: '∞',      label: 'Concurrent projects',         icon: '📋' },
+            { val: 'Escrow', label: 'Per-freelancer payments',      icon: '🔒' },
+            { val: 'T+1',    label: 'Payout settlement',           icon: '💸' },
+            { val: '1 view', label: 'All projects, one dashboard', icon: '📊' },
+          ].map(s => (
+            <div key={s.label} style={{ padding: '10px 18px', borderRadius: '12px', background: 'var(--color-surface)', border: '1px solid var(--color-hairline)', textAlign: 'center', minWidth: '110px' }}>
+              <div style={{ fontSize: '16px', marginBottom: '4px' }}>{s.icon}</div>
+              <div style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 800, fontSize: '1rem', color: '#1D4ED8', letterSpacing: '-0.02em' }}>{s.val}</div>
+              <div style={{ fontFamily: 'var(--font-inter)', fontSize: '10px', color: 'var(--color-muted)', marginTop: '2px' }}>{s.label}</div>
+            </div>
+          ))}
+        </div>
       </section>
 
       {/* Agency vs Studio — Key Explainer */}

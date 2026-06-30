@@ -22,6 +22,22 @@ export default function AdminPage() {
         <p style={{ fontFamily: 'var(--font-inter)', fontSize: '1.05rem', color: 'var(--color-muted)', maxWidth: '640px', margin: '0 auto 36px', lineHeight: 1.7 }}>
           Admins have full access to all platform operations: user management, KYC queues, financial reconciliation, payout management, moderation oversight, dispute records, audit logs, subscription management, and real-time platform KPIs.
         </p>
+
+        {/* KPI strip */}
+        <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', flexWrap: 'wrap' }}>
+          {[
+            { val: '₹4.2Cr',  label: 'Monthly GMV',          icon: '💰' },
+            { val: '1.8%',    label: 'Dispute rate (target <2%)', icon: '⚖️' },
+            { val: '4 KYC',   label: 'Pending verifications', icon: '🪪' },
+            { val: '99.97%',  label: 'Platform uptime SLO',  icon: '🟢' },
+          ].map(s => (
+            <div key={s.label} style={{ padding: '12px 20px', borderRadius: '12px', background: 'var(--color-surface)', border: '1px solid var(--color-hairline)', textAlign: 'center', minWidth: '120px' }}>
+              <div style={{ fontSize: '18px', marginBottom: '6px' }}>{s.icon}</div>
+              <div style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 800, fontSize: '1.2rem', color: '#1F2937', letterSpacing: '-0.025em' }}>{s.val}</div>
+              <div style={{ fontFamily: 'var(--font-inter)', fontSize: '10px', color: 'var(--color-muted)', marginTop: '2px', maxWidth: '100px' }}>{s.label}</div>
+            </div>
+          ))}
+        </div>
       </section>
 
       {/* Admin Dashboard */}
@@ -164,6 +180,34 @@ export default function AdminPage() {
         </div>
       </section>
 
+      {/* Admin Daily Flow */}
+      <section style={{ padding: '0 24px 64px', maxWidth: '1100px', margin: '0 auto' }}>
+        <h2 style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 800, fontSize: '1.8rem', letterSpacing: '-0.025em', marginBottom: '8px' }}>Admin Daily Operations Flow</h2>
+        <p style={{ fontFamily: 'var(--font-inter)', fontSize: '0.95rem', color: 'var(--color-muted)', marginBottom: '32px' }}>How a Sceneora Admin keeps the platform healthy every day.</p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
+          {[
+            { icon: '📊', step: '01', title: 'Morning KPI Review', desc: 'Admin opens the console to review overnight activity: GMV, new bookings, new user signups, any failed payments, dispute rate, and API uptime. Red metrics trigger immediate investigation.' },
+            { icon: '🪪', step: '02', title: 'Process KYC Queue', desc: 'Review pending Aadhaar/PAN/face verification requests. Approve verified profiles or flag for re-submission. Verified creators unlock higher search ranking — delays in KYC directly impact creator earnings.' },
+            { icon: '💰', step: '03', title: 'Finance & Payout Reconciliation', desc: 'Review payout queue. Verify escrow positions match booking ledger. Trigger any held payouts. Check for failed UPI transfers and retry or escalate. Review GST/TDS deductions for accuracy.' },
+            { icon: '🛡️', step: '04', title: 'Moderation Oversight', desc: 'Review moderation queue stats. Check if any high-severity reports are unresolved past SLA (4h). Override moderator decisions if needed. Review policy edge cases flagged by moderators for guidelines update.' },
+            { icon: '⚖️', step: '05', title: 'Dispute & Trust Review', desc: 'Review active disputes — especially any past the evidence collection window. Ensure Trust Officers are unblocked. Review resolved disputes for payout accuracy. Check if platform trust health metrics are trending correctly.' },
+            { icon: '📋', step: '06', title: 'Audit & Compliance Log', desc: 'All admin actions are auto-logged with user ID, timestamp, before/after state, and IP address. Weekly compliance export for legal/finance. DPDP Act 2023 data access requests are processed here.' },
+          ].map((s, i, arr) => (
+            <div key={s.step} style={{ display: 'flex', gap: '24px', alignItems: 'flex-start', position: 'relative', paddingBottom: i < arr.length - 1 ? '24px' : '0' }}>
+              {i < arr.length - 1 && <div style={{ position: 'absolute', left: '21px', top: '48px', bottom: '0', width: '2px', background: 'linear-gradient(to bottom,#37415144,transparent)' }} />}
+              <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: '#F9FAFB', border: '2px solid rgba(55,65,81,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px', flexShrink: 0, position: 'relative', zIndex: 1 }}>{s.icon}</div>
+              <div style={{ flex: 1, padding: '14px 18px', background: 'var(--color-surface)', borderRadius: '12px', border: '1px solid var(--color-hairline)', marginBottom: i < arr.length - 1 ? '8px' : '0' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+                  <span style={{ fontFamily: 'var(--font-jetbrains-mono)', fontSize: '10px', color: '#374151', fontWeight: 700 }}>{s.step}</span>
+                  <div style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 700, fontSize: '14px', color: 'var(--color-ink)' }}>{s.title}</div>
+                </div>
+                <div style={{ fontFamily: 'var(--font-inter)', fontSize: '13px', color: 'var(--color-muted)', lineHeight: 1.65 }}>{s.desc}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* Admin Capabilities */}
       <section style={{ padding: '0 24px 64px', maxWidth: '1100px', margin: '0 auto' }}>
         <h2 style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 800, fontSize: '1.8rem', letterSpacing: '-0.025em', marginBottom: '28px' }}>Full Admin Capabilities</h2>
@@ -187,6 +231,28 @@ export default function AdminPage() {
               <div style={{ fontFamily: 'var(--font-inter)', fontSize: '13px', color: 'var(--color-muted)', lineHeight: 1.6 }}>{cap.desc}</div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Onboarding section */}
+      <section id="onboarding" style={{ padding: '0 24px 64px', maxWidth: '1100px', margin: '0 auto' }}>
+        <div style={{ background: 'linear-gradient(135deg,#F9FAFB,#F3F4F6)', borderRadius: '20px', padding: '40px', border: '1px solid #D1D5DB' }}>
+          <h2 style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 800, fontSize: '1.6rem', letterSpacing: '-0.025em', marginBottom: '8px', color: '#1F2937' }}>Admin Onboarding</h2>
+          <p style={{ fontFamily: 'var(--font-inter)', fontSize: '0.95rem', color: '#6B7280', marginBottom: '28px' }}>Admin accounts are provisioned by Super Admin only. Full-access credentials require identity verification and a formal role assignment record.</p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))', gap: '14px' }}>
+            {[
+              { step: '1', icon: '🔑', label: 'Super Admin invite', desc: 'Super Admin generates a one-time token. No self-registration. Access scoped per assignment.' },
+              { step: '2', icon: '🪪', label: 'Identity verification', desc: 'Identity document + face verification required before console access is granted.' },
+              { step: '3', icon: '🔐', label: 'Security setup', desc: 'Passkey/2FA + session logging. All admin sessions are recorded in the audit trail.' },
+              { step: '4', icon: '🔧', label: 'Console access', desc: 'Full admin console access: users, KYC, finance, moderation, disputes, audit log, feature flags.' },
+            ].map(s => (
+              <div key={s.step} style={{ padding: '18px', borderRadius: '14px', background: 'rgba(255,255,255,0.8)', border: '1px solid #E5E7EB' }}>
+                <span style={{ fontSize: '24px', display: 'block', marginBottom: '10px' }}>{s.icon}</span>
+                <div style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 700, fontSize: '13px', color: '#111827', marginBottom: '6px' }}>Step {s.step} · {s.label}</div>
+                <div style={{ fontFamily: 'var(--font-inter)', fontSize: '12px', color: '#6B7280', lineHeight: 1.6 }}>{s.desc}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

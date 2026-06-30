@@ -1,14 +1,7 @@
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
-
-const NAV = [
-  { href: '/', label: 'Home' },
-  { href: '/spaces', label: 'Spaces' },
-  { href: '/gear', label: 'Gear' },
-  { href: '/how-it-works/spaces', label: 'How It Works' },
-  { href: '/docs', label: 'Docs' },
-]
+import SceneoraNav from '../../../components/SceneoraNav'
 
 const STEPS = [
   {
@@ -333,20 +326,10 @@ export default function HowItWorksSpaces() {
 
   return (
     <div style={{ minHeight: '100vh', background: 'var(--color-bg)', color: 'var(--color-ink)' }}>
-      {/* Nav */}
-      <header style={{ position: 'sticky', top: 0, zIndex: 100, height: '60px', display: 'flex', alignItems: 'center', padding: '0 24px', gap: '16px', background: 'var(--color-bg)', borderBottom: '1px solid var(--color-hairline)' }}>
-        <Link href="/" style={{ textDecoration: 'none' }}>
-          <span style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 800, fontSize: '17px', letterSpacing: '-0.04em', color: 'var(--color-ink)' }}>SCENEORA</span>
-        </Link>
-        <nav style={{ display: 'flex', gap: '2px' }}>
-          {NAV.map(l => (
-            <Link key={l.href} href={l.href} style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 600, fontSize: '12px', color: l.href === '/how-it-works/spaces' ? 'var(--color-accent)' : 'var(--color-muted)', textDecoration: 'none', padding: '5px 10px', borderRadius: '6px', background: l.href === '/how-it-works/spaces' ? 'rgba(15,98,254,0.08)' : 'none' }}>{l.label}</Link>
-          ))}
-        </nav>
-      </header>
+      <SceneoraNav active="/how-it-works/spaces" />
 
       {/* Hero */}
-      <div style={{ background: `linear-gradient(135deg, rgba(15,98,254,0.06) 0%, rgba(30,142,90,0.06) 100%)`, borderBottom: '1px solid var(--color-hairline)', padding: '48px 24px 40px', textAlign: 'center' }}>
+      <div style={{ background: `linear-gradient(135deg, rgba(15,98,254,0.06) 0%, rgba(30,142,90,0.06) 100%)`, borderBottom: '1px solid var(--color-hairline)', padding: '112px 24px 40px', textAlign: 'center' }}>
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '5px 14px', borderRadius: '100px', background: 'rgba(15,98,254,0.1)', marginBottom: '16px' }}>
           <span style={{ fontSize: '14px' }}>🏛️</span>
           <span style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 700, fontSize: '12px', color: 'var(--color-accent)' }}>Space Rental · How It Works</span>

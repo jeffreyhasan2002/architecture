@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
+import SceneoraNav from '../../components/SceneoraNav'
 
 type SpaceType = 'all' | 'indoor' | 'outdoor' | 'home'
 type SortBy = 'rating' | 'price_asc' | 'price_desc' | 'newest'
@@ -229,20 +230,10 @@ export default function SpacesPage() {
 
   return (
     <div style={{ minHeight: '100vh', background: 'var(--color-bg)', color: 'var(--color-ink)' }}>
-      {/* Nav */}
-      <header style={{ position: 'sticky', top: 0, zIndex: 100, height: '60px', display: 'flex', alignItems: 'center', padding: '0 24px', gap: '16px', background: 'var(--color-bg)', borderBottom: '1px solid var(--color-hairline)', boxShadow: '0 1px 8px rgba(0,0,0,0.04)' }}>
-        <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <span style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 800, fontSize: '17px', letterSpacing: '-0.04em', color: 'var(--color-ink)' }}>SCENEORA</span>
-        </Link>
-        <nav style={{ display: 'flex', gap: '2px' }}>
-          {[{ href: '/', label: 'Home' }, { href: '/spaces', label: 'Spaces' }, { href: '/gear', label: 'Gear' }, { href: '/docs', label: 'Docs' }].map(l => (
-            <Link key={l.href} href={l.href} style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 600, fontSize: '13px', color: l.href === '/spaces' ? 'var(--color-accent)' : 'var(--color-muted)', textDecoration: 'none', padding: '6px 12px', borderRadius: '6px', background: l.href === '/spaces' ? 'rgba(15,98,254,0.08)' : 'none' }}>{l.label}</Link>
-          ))}
-        </nav>
-      </header>
+      <SceneoraNav active="/spaces" />
 
       {/* Page header */}
-      <div style={{ background: 'linear-gradient(135deg, rgba(15,98,254,0.06) 0%, rgba(30,142,90,0.06) 100%)', borderBottom: '1px solid var(--color-hairline)', padding: '40px 24px 32px' }}>
+      <div style={{ background: 'linear-gradient(135deg, rgba(15,98,254,0.06) 0%, rgba(30,142,90,0.06) 100%)', borderBottom: '1px solid var(--color-hairline)', padding: '104px 24px 32px' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <h1 style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 800, fontSize: 'clamp(1.8rem, 3vw, 2.4rem)', letterSpacing: '-0.03em', color: 'var(--color-ink)', marginBottom: '8px' }}>Browse Spaces</h1>
           <p style={{ fontFamily: 'var(--font-inter)', fontSize: '14px', color: 'var(--color-muted)', marginBottom: '20px' }}>Indoor studios, outdoor locations, and home sets — ready to shoot.</p>

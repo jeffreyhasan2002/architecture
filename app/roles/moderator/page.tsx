@@ -118,6 +118,61 @@ export default function ModeratorPage() {
         </div>
       </section>
 
+      {/* Step-by-step daily workflow */}
+      <section style={{ padding: '0 24px 64px', maxWidth: '1100px', margin: '0 auto' }}>
+        <h2 style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 800, fontSize: '1.8rem', letterSpacing: '-0.025em', marginBottom: '8px' }}>Moderator Daily Workflow</h2>
+        <p style={{ fontFamily: 'var(--font-inter)', fontSize: '0.95rem', color: 'var(--color-muted)', marginBottom: '32px' }}>How a Moderator processes their queue each day.</p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
+          {[
+            { n: '01', icon: '📬', title: 'Review open queue', desc: 'Open the Moderation Console. Queue is sorted by severity (High → Medium → Low). New reports since last session are highlighted.', time: '8–9 AM' },
+            { n: '02', icon: '🔍', title: 'Investigate each report', desc: 'Click into a report to see: the flagged content, the reporter\'s reason, the creator\'s full profile, and similar past decisions for context. Check EXIF, compare portfolio, review history.', time: 'Per report' },
+            { n: '03', icon: '⚖️', title: 'Take action', desc: 'Available actions: Approve (clear the report, no violation), Warn (notify creator, log warning), Remove (take down content/review), Suspend (temp block pending review), Escalate (route to Trust Officer for payment/legal/KYC matters).', time: 'Per report' },
+            { n: '04', icon: '📝', title: 'Log decision with reason', desc: 'Every action requires a reason log — referenced if the creator appeals. Reason feeds the audit trail.', time: 'Per action' },
+            { n: '05', icon: '🔗', title: 'Escalate to Trust Officer if needed', desc: 'Disputes involving escrow, verified identity fraud, or legal claims are escalated — Moderators do not directly release funds or finalize KYC.', time: 'As needed' },
+            { n: '06', icon: '📊', title: 'End-of-day stats check', desc: 'Review queue cleared %, avg resolution time, policy accuracy. Flag any recurring pattern (e.g. multiple fake-review reports from same creator) to Admin.', time: 'End of day' },
+          ].map((s, i, arr) => (
+            <div key={s.n} style={{ display: 'flex', gap: '24px', alignItems: 'flex-start', position: 'relative', paddingBottom: i < arr.length - 1 ? '28px' : '0' }}>
+              {i < arr.length - 1 && (
+                <div style={{ position: 'absolute', left: '20px', top: '44px', bottom: '0', width: '2px', background: 'var(--color-hairline)' }} />
+              )}
+              <div style={{ width: '42px', height: '42px', borderRadius: '50%', background: '#ECFDF5', border: '2px solid #059669', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px', flexShrink: 0, position: 'relative', zIndex: 1 }}>{s.icon}</div>
+              <div style={{ flex: 1, paddingTop: '6px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px', flexWrap: 'wrap', gap: '8px' }}>
+                  <div style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 700, fontSize: '15px', color: 'var(--color-ink)' }}>
+                    <span style={{ fontFamily: 'var(--font-jetbrains-mono)', fontSize: '11px', color: '#059669', marginRight: '8px' }}>{s.n}</span>
+                    {s.title}
+                  </div>
+                  <span style={{ fontFamily: 'var(--font-jetbrains-mono)', fontSize: '10px', color: '#059669', background: '#ECFDF5', padding: '3px 10px', borderRadius: '100px' }}>{s.time}</span>
+                </div>
+                <div style={{ fontFamily: 'var(--font-inter)', fontSize: '13px', color: 'var(--color-muted)', lineHeight: 1.65 }}>{s.desc}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Onboarding section */}
+      <section id="onboarding" style={{ padding: '0 24px 80px', maxWidth: '1100px', margin: '0 auto' }}>
+        <div style={{ background: 'linear-gradient(135deg,#ECFDF5,#D1FAE5)', borderRadius: '20px', padding: '40px', border: '1px solid rgba(5,150,105,0.2)' }}>
+          <h2 style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 800, fontSize: '1.6rem', letterSpacing: '-0.025em', marginBottom: '8px', color: '#065F46' }}>Moderator Onboarding</h2>
+          <p style={{ fontFamily: 'var(--font-inter)', fontSize: '0.95rem', color: '#059669', marginBottom: '28px' }}>Moderators are invited by Admins — not publicly registered. Access is scoped to moderation tools only.</p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))', gap: '14px' }}>
+            {[
+              { step: '1', icon: '📧', label: 'Receive invite', desc: 'Admin sends a role-scoped invite to your email. No public sign-up.' },
+              { step: '2', icon: '🔐', label: 'Create credentials', desc: 'Set up your password + 2FA (required for all internal roles).' },
+              { step: '3', icon: '📚', label: 'Policy training', desc: 'Complete the platform policy guide and moderation decision framework.' },
+              { step: '4', icon: '🛡️', label: 'Console access', desc: 'Access the Moderation Console — scoped to review queue and action log only.' },
+            ].map(s => (
+              <div key={s.step} style={{ padding: '18px', borderRadius: '14px', background: 'rgba(255,255,255,0.7)', border: '1px solid rgba(5,150,105,0.2)' }}>
+                <span style={{ fontSize: '24px', display: 'block', marginBottom: '10px' }}>{s.icon}</span>
+                <div style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 700, fontSize: '13px', color: '#065F46', marginBottom: '6px' }}>Step {s.step} · {s.label}</div>
+                <div style={{ fontFamily: 'var(--font-inter)', fontSize: '12px', color: '#059669', lineHeight: 1.6 }}>{s.desc}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section style={{ padding: '0 24px 80px', maxWidth: '1100px', margin: '0 auto', borderTop: '1px solid var(--color-hairline)', paddingTop: '48px' }}>
         <h3 style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 700, fontSize: '1.1rem', color: 'var(--color-muted)', marginBottom: '20px' }}>Explore other roles →</h3>
         <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
