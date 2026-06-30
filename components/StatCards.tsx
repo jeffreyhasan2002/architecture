@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from 'react'
 
 interface Stat {
-  value: string
+  value?: string
   label: string
   before?: string
   after?: string
