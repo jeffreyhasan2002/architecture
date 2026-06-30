@@ -1,9 +1,39 @@
 'use client'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 
 interface Props {
   code: string
   id: string
+}
+
+// Track whether mermaid has been initialized for the current theme
+let _mermaidInitialized = false
+let _currentTheme: string | null = null
+
+async function getMermaid(theme: string) {
+  const mermaid = (await import('mermaid')).default
+  // Only re-initialize if theme actually changed
+  if (!_mermaidInitialized || _currentTheme !== theme) {
+    mermaid.initialize({
+      startOnLoad: false,
+      theme,
+      flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' },
+      er: { useMaxWidth: true },
+      themeVariables: {
+        primaryColor: '#EFF4FF',
+        primaryTextColor: '#161616',
+        primaryBorderColor: '#0F62FE',
+        lineColor: '#6F6F6F',
+        secondaryColor: '#F4F2FF',
+        tertiaryColor: '#ECFDF5',
+        edgeLabelBackground: '#FAFAF8',
+      },
+      securityLevel: 'loose',
+    })
+    _mermaidInitialized = true
+    _currentTheme = theme
+  }
+  return mermaid
 }
 
 export default function MermaidDiagram({ code, id }: Props) {
@@ -12,32 +42,25 @@ export default function MermaidDiagram({ code, id }: Props) {
   const [svg, setSvg] = useState<string>('')
   const [error, setError] = useState<string>('')
   const [zoom, setZoom] = useState(1)
+  // renderKey is bumped whenever we need to force a re-render (e.g. theme change)
+  const [renderKey, setRenderKey] = useState(0)
 
+  const getTheme = useCallback(() =>
+    document.documentElement.classList.contains('dark') ? 'dark' : 'default'
+  , [])
+
+  // Main render effect – depends on code, id, and renderKey so theme changes re-trigger it
   useEffect(() => {
     let cancelled = false
 
     const renderDiagram = async () => {
       try {
-        const mermaid = (await import('mermaid')).default
-        mermaid.initialize({
-          startOnLoad: false,
-          theme: document.documentElement.classList.contains('dark') ? 'dark' : 'default',
-          flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' },
-          er: { useMaxWidth: true },
-          themeVariables: {
-            primaryColor: '#EFF4FF',
-            primaryTextColor: '#161616',
-            primaryBorderColor: '#0F62FE',
-            lineColor: '#6F6F6F',
-            secondaryColor: '#F4F2FF',
-            tertiaryColor: '#ECFDF5',
-            // Node colors by type
-            edgeLabelBackground: '#FAFAF8',
-          },
-          securityLevel: 'loose',
-        })
+        const theme = getTheme()
+        const mermaid = await getMermaid(theme)
 
-        const { svg: rendered } = await mermaid.render(`mermaid-${id}-${Date.now()}`, code)
+        // Use a unique element ID each call to avoid Mermaid's internal ID cache
+        const uniqueId = `mermaid-${id}-${renderKey}-${Date.now()}`
+        const { svg: rendered } = await mermaid.render(uniqueId, code)
         if (!cancelled) {
           setSvg(rendered)
           setError('')
@@ -50,18 +73,26 @@ export default function MermaidDiagram({ code, id }: Props) {
       }
     }
 
+    // Reset svg before re-render so loading state is shown
+    setSvg('')
+    setError('')
     renderDiagram()
-    return () => { cancelled = true }
-  }, [code, id])
 
-  // Listen for dark mode changes
+    return () => { cancelled = true }
+  }, [code, id, renderKey, getTheme])
+
+  // Listen for dark mode changes → bump renderKey to force re-render
   useEffect(() => {
     const observer = new MutationObserver(() => {
-      // Re-render on theme change
-      setSvg('')
-      setError('')
+      // Force re-initialize on next render by clearing the theme cache
+      _mermaidInitialized = false
+      _currentTheme = null
+      setRenderKey(k => k + 1)
     })
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    })
     return () => observer.disconnect()
   }, [])
 

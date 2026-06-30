@@ -74,12 +74,24 @@ function AnimatedSection({ children, delay = 0 }: { children: React.ReactNode; d
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    const el = ref.current
+    if (!el) return
+
     const observer = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) setVisible(true) },
-      { threshold: 0.05, rootMargin: '0px 0px -40px 0px' }
+      ([e]) => {
+        if (e.isIntersecting) {
+          setVisible(true)
+          observer.disconnect() // stay visible once seen
+        }
+      },
+      { threshold: 0.01 } // very small threshold so off-screen diagrams still trigger
     )
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
+    observer.observe(el)
+
+    // Fallback: make visible after 1.5 s even if never scrolled into view
+    const fallback = setTimeout(() => setVisible(true), 1500)
+
+    return () => { observer.disconnect(); clearTimeout(fallback) }
   }, [])
 
   return (
