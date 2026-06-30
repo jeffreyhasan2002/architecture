@@ -45,9 +45,7 @@ export default function MermaidDiagram({ code, id }: Props) {
   // renderKey is bumped whenever we need to force a re-render (e.g. theme change)
   const [renderKey, setRenderKey] = useState(0)
 
-  const getTheme = useCallback(() =>
-    document.documentElement.classList.contains('dark') ? 'dark' : 'default'
-  , [])
+  const getTheme = useCallback(() => 'default', [])
 
   // Main render effect – depends on code, id, and renderKey so theme changes re-trigger it
   useEffect(() => {
@@ -81,20 +79,7 @@ export default function MermaidDiagram({ code, id }: Props) {
     return () => { cancelled = true }
   }, [code, id, renderKey, getTheme])
 
-  // Listen for dark mode changes → bump renderKey to force re-render
-  useEffect(() => {
-    const observer = new MutationObserver(() => {
-      // Force re-initialize on next render by clearing the theme cache
-      _mermaidInitialized = false
-      _currentTheme = null
-      setRenderKey(k => k + 1)
-    })
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class'],
-    })
-    return () => observer.disconnect()
-  }, [])
+
 
   const handleZoomIn = () => setZoom(z => Math.min(z + 0.25, 3))
   const handleZoomOut = () => setZoom(z => Math.max(z - 0.25, 0.25))
