@@ -28,13 +28,29 @@ const HOW_OWNERS = [
   { icon: '🔧', bg: '#F5F3FF', color: '#7C3AED', href: '/gear/owner',   title: 'Gear Owner Portal',  desc: 'List gear, manage rentals & deposits' },
 ]
 
+const FLOW_LINKS = [
+  { icon: '🧭', bg: '#ECFDF5', color: '#059669', href: '/flow',         title: 'Overview',              desc: 'The whole platform, one picture' },
+  { icon: '🔑', bg: '#EEF2FF', color: '#4F46E5', href: '/flow/signup',  title: 'Sign-Up & Onboarding',   desc: 'One form, role-adaptive wizard' },
+  { icon: '👥', bg: '#F5F3FF', color: '#7C3AED', href: '/flow/roles',   title: 'Role Journeys',          desc: 'What each role does after signup' },
+  { icon: '⚙️', bg: '#ECFEFF', color: '#0891B2', href: '/flow/systems', title: 'Shared Systems',         desc: 'Auth, payments, subscriptions, disputes' },
+]
+
+const FEATURES_LINKS = [
+  { icon: '🤖', bg: '#EEF2FF', color: '#4F46E5', href: '/features/ai',       title: 'AI Features',       desc: 'Budget Estimator, Brief Parser, Fit Score, Concierge' },
+  { icon: '🧭', bg: '#ECFDF5', color: '#059669', href: '/features/platform', title: 'Platform Features',  desc: 'All 22 features from the spec, §3.2–3.10' },
+]
+
 export default function SceneoraNav({ active }: { active?: string }) {
   const [scrolled, setScrolled]     = useState(false)
   const [rolesOpen, setRolesOpen]   = useState(false)
   const [howOpen, setHowOpen]       = useState(false)
+  const [flowOpen, setFlowOpen]     = useState(false)
+  const [featuresOpen, setFeaturesOpen] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [mobileRoles, setMobileRoles] = useState(false)
   const [mobileHow, setMobileHow]   = useState(false)
+  const [mobileFlow, setMobileFlow] = useState(false)
+  const [mobileFeatures, setMobileFeatures] = useState(false)
   const pathname = usePathname()
 
   useEffect(() => {
@@ -172,11 +188,67 @@ export default function SceneoraNav({ active }: { active?: string }) {
             )}
           </div>
 
+          {/* Flow mega-menu */}
+          <div style={{ position: 'relative' }} onMouseEnter={() => setFlowOpen(true)} onMouseLeave={() => setFlowOpen(false)}>
+            <button style={navBtnStyle('/flow')}
+              onMouseEnter={e => { if (!isActive('/flow')) { (e.currentTarget as HTMLElement).style.background = 'var(--color-accent-muted)'; (e.currentTarget as HTMLElement).style.color = 'var(--color-accent)' } }}
+              onMouseLeave={e => { if (!isActive('/flow')) { (e.currentTarget as HTMLElement).style.background = ''; (e.currentTarget as HTMLElement).style.color = 'var(--color-muted)' } }}
+            >
+              🧭 Flow
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ transition: 'transform 0.15s', transform: flowOpen ? 'rotate(180deg)' : '' }}>
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </button>
+            {flowOpen && (
+              <div style={{ position: 'absolute', top: 'calc(100% + 8px)', left: 0, background: 'var(--color-surface)', border: '1.5px solid var(--color-hairline)', borderRadius: '15px', padding: '8px', minWidth: '300px', boxShadow: 'var(--shadow-dialog)', zIndex: 400, animation: 'fadeInUp 0.18s ease-out both' }}>
+                <div style={{ fontSize: '10px', fontFamily: 'var(--font-display)', fontWeight: 800, color: 'var(--color-muted)', letterSpacing: '0.08em', textTransform: 'uppercase', padding: '6px 12px 8px', borderBottom: '1px solid var(--color-hairline)', marginBottom: '4px' }}>Signup → Everything, tied together</div>
+                {FLOW_LINKS.map(item => (
+                  <Link key={item.href} href={item.href} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 13px', borderRadius: '11px', textDecoration: 'none', transition: 'background 0.12s' }}
+                    onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = 'var(--color-surface-hover)'}
+                    onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = ''}>
+                    <span style={{ width: '36px', height: '36px', borderRadius: '10px', background: item.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '17px', flexShrink: 0 }}>{item.icon}</span>
+                    <div>
+                      <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '13px', color: 'var(--color-ink)' }}>{item.title}</div>
+                      <div style={{ fontFamily: 'var(--font-inter)', fontSize: '11px', color: 'var(--color-muted)', marginTop: '1px' }}>{item.desc}</div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Features dropdown */}
+          <div style={{ position: 'relative' }} onMouseEnter={() => setFeaturesOpen(true)} onMouseLeave={() => setFeaturesOpen(false)}>
+            <button style={navBtnStyle('/features')}
+              onMouseEnter={e => { if (!isActive('/features')) { (e.currentTarget as HTMLElement).style.background = 'var(--color-accent-muted)'; (e.currentTarget as HTMLElement).style.color = 'var(--color-accent)' } }}
+              onMouseLeave={e => { if (!isActive('/features')) { (e.currentTarget as HTMLElement).style.background = ''; (e.currentTarget as HTMLElement).style.color = 'var(--color-muted)' } }}
+            >
+              Features
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ transition: 'transform 0.15s', transform: featuresOpen ? 'rotate(180deg)' : '' }}>
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </button>
+            {featuresOpen && (
+              <div style={{ position: 'absolute', top: 'calc(100% + 8px)', left: 0, background: 'var(--color-surface)', border: '1.5px solid var(--color-hairline)', borderRadius: '15px', padding: '8px', minWidth: '300px', boxShadow: 'var(--shadow-dialog)', zIndex: 400, animation: 'fadeInUp 0.18s ease-out both' }}>
+                {FEATURES_LINKS.map(item => (
+                  <Link key={item.href} href={item.href} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 13px', borderRadius: '11px', textDecoration: 'none', transition: 'background 0.12s' }}
+                    onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = 'var(--color-surface-hover)'}
+                    onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = ''}>
+                    <span style={{ width: '36px', height: '36px', borderRadius: '10px', background: item.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '17px', flexShrink: 0 }}>{item.icon}</span>
+                    <div>
+                      <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '13px', color: 'var(--color-ink)' }}>{item.title}</div>
+                      <div style={{ fontFamily: 'var(--font-inter)', fontSize: '11px', color: 'var(--color-muted)', marginTop: '1px' }}>{item.desc}</div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+
           {[
             { href: '/creators',    label: 'Creators' },
             { href: '/spaces',      label: 'Spaces' },
             { href: '/gear',        label: 'Gear' },
-            { href: '/features/ai', label: '🤖 AI Features' },
             { href: '/docs',        label: 'Docs' },
           ].map(l => (
             <Link key={l.href} href={l.href} style={navBtnStyle(l.href)}
@@ -257,13 +329,54 @@ export default function SceneoraNav({ active }: { active?: string }) {
             )}
           </div>
 
+          {/* Flow section */}
+          <div style={{ marginBottom: '20px' }}>
+            <button onClick={() => setMobileFlow(f => !f)} style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 16px', background: 'var(--color-surface)', borderRadius: '12px', border: 'none', cursor: 'pointer', fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '14px', color: 'var(--color-ink)' }}>
+              <span>🧭 Flow</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ transition: 'transform 0.15s', transform: mobileFlow ? 'rotate(180deg)' : '' }}><path d="m6 9 6 6 6-6" /></svg>
+            </button>
+            {mobileFlow && (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', padding: '10px 4px 0' }}>
+                {FLOW_LINKS.map(item => (
+                  <Link key={item.href} href={item.href} onClick={() => setMobileOpen(false)} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 14px', borderRadius: '12px', background: 'var(--color-surface)', textDecoration: 'none', border: '1px solid var(--color-hairline)' }}>
+                    <span style={{ width: '36px', height: '36px', borderRadius: '10px', background: item.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px', flexShrink: 0 }}>{item.icon}</span>
+                    <div>
+                      <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '13px', color: 'var(--color-ink)' }}>{item.title}</div>
+                      <div style={{ fontFamily: 'var(--font-inter)', fontSize: '11px', color: 'var(--color-muted)' }}>{item.desc}</div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Features section */}
+          <div style={{ marginBottom: '20px' }}>
+            <button onClick={() => setMobileFeatures(f => !f)} style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 16px', background: 'var(--color-surface)', borderRadius: '12px', border: 'none', cursor: 'pointer', fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '14px', color: 'var(--color-ink)' }}>
+              <span>Features</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ transition: 'transform 0.15s', transform: mobileFeatures ? 'rotate(180deg)' : '' }}><path d="m6 9 6 6 6-6" /></svg>
+            </button>
+            {mobileFeatures && (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', padding: '10px 4px 0' }}>
+                {FEATURES_LINKS.map(item => (
+                  <Link key={item.href} href={item.href} onClick={() => setMobileOpen(false)} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 14px', borderRadius: '12px', background: 'var(--color-surface)', textDecoration: 'none', border: '1px solid var(--color-hairline)' }}>
+                    <span style={{ width: '36px', height: '36px', borderRadius: '10px', background: item.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px', flexShrink: 0 }}>{item.icon}</span>
+                    <div>
+                      <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '13px', color: 'var(--color-ink)' }}>{item.title}</div>
+                      <div style={{ fontFamily: 'var(--font-inter)', fontSize: '11px', color: 'var(--color-muted)' }}>{item.desc}</div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+
           {/* Direct links */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginBottom: '24px' }}>
             {[
               { href: '/creators',    label: 'Creators',    icon: '📷', desc: 'Browse photographers, videographers, MUAs' },
               { href: '/spaces',      label: 'Spaces',      icon: '🏛️', desc: 'Indoor studios & outdoor locations' },
               { href: '/gear',        label: 'Gear',        icon: '🎥', desc: 'Cameras, lenses, lighting & more' },
-              { href: '/features/ai', label: 'AI Features', icon: '🤖', desc: 'Budget Estimator, Brief Parser, Fit Score, Concierge' },
               { href: '/docs',        label: 'Docs',        icon: '📄', desc: 'Full platform documentation' },
             ].map(l => (
               <Link key={l.href} href={l.href} onClick={() => setMobileOpen(false)} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 14px', borderRadius: '12px', background: 'var(--color-surface)', textDecoration: 'none', border: '1px solid var(--color-hairline)' }}>
