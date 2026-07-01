@@ -118,7 +118,7 @@ export default function AgencyPage() {
           <div style={{ padding: '32px 40px' }}>
             {(['agency', 'studio'] as const).map(tab => compTab === tab && (
               <div key={tab}>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px', alignItems: 'start' }}>
+                <div className="split-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px', alignItems: 'start' }}>
                   <div>
                     <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 14px', borderRadius: '100px', background: COMPARISON[tab].bg, border: `1px solid ${COMPARISON[tab].color}33`, marginBottom: '16px' }}>
                       <span style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 700, fontSize: '13px', color: COMPARISON[tab].color }}>{COMPARISON[tab].title}</span>

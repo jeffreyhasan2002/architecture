@@ -99,7 +99,7 @@ export default function PlatformFeaturesPage() {
 
                   {isOpen && (
                     <div style={{ padding: '0 20px 24px', borderTop: '1px solid var(--color-hairline)', marginTop: '-1px', paddingTop: '20px' }}>
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', alignItems: 'start' }}>
+                      <div className="split-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', alignItems: 'start' }}>
                         {/* Left: goal + how + module + acceptance */}
                         <div>
                           <div style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 700, fontSize: '11px', color: f.color, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '6px' }}>Goal</div>

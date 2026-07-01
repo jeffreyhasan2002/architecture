@@ -142,7 +142,7 @@ export default function FlowSystemsPage() {
           <div style={{ fontSize: '11.5px', color: s.color, fontWeight: 600, marginTop: '4px' }}>Used by: {s.usedBy}</div>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', alignItems: 'start' }}>
+        <div className="split-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', alignItems: 'start' }}>
           <div style={{ borderRadius: '14px', border: '1px solid var(--color-hairline)', overflow: 'hidden', background: 'var(--color-surface)' }}>
             <MermaidDiagram code={s.mermaid} id={`system-${active}`} />
           </div>

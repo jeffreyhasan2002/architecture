@@ -98,7 +98,7 @@ function BrowseMockup() {
         <div style={{ fontSize: '10px', color: '#6b7280', marginBottom: '4px' }}>Max price: <strong style={{ color: '#0F62FE' }}>${price}/hr</strong></div>
         <input type="range" min={30} max={150} value={price} onChange={e => setPrice(Number(e.target.value))} style={{ width: '100%', accentColor: '#0F62FE' }} />
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+      <div className="split-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
         {cards.map(c => (
           <div key={c.name} style={{ borderRadius: '10px', border: '1px solid #e5e7eb', overflow: 'hidden' }}>
             <div style={{ height: '60px', background: c.gradient, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px' }}>
@@ -177,7 +177,7 @@ function BookMockup() {
           <label style={{ fontSize: '10px', fontWeight: 600, color: '#6b7280', display: 'block', marginBottom: '4px' }}>DATE</label>
           <input type="date" value={date} onChange={e => setDate(e.target.value)} style={{ width: '100%', padding: '7px 10px', borderRadius: '7px', border: '1.5px solid #e5e7eb', fontSize: '11px', outline: 'none', boxSizing: 'border-box' }} />
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+        <div className="split-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
           <div>
             <label style={{ fontSize: '10px', fontWeight: 600, color: '#6b7280', display: 'block', marginBottom: '4px' }}>START</label>
             <select value={time} onChange={e => setTime(e.target.value)} style={{ width: '100%', padding: '7px 8px', borderRadius: '7px', border: '1.5px solid #e5e7eb', fontSize: '11px', outline: 'none' }}>
@@ -218,7 +218,7 @@ function PayMockup() {
       {method === 'card' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '14px' }}>
           <input placeholder="Card number" style={{ padding: '8px 10px', borderRadius: '7px', border: '1.5px solid #e5e7eb', fontSize: '11px', outline: 'none' }} defaultValue="4242 4242 4242 4242" />
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+          <div className="split-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
             <input placeholder="MM/YY" defaultValue="08/28" style={{ padding: '8px 10px', borderRadius: '7px', border: '1.5px solid #e5e7eb', fontSize: '11px', outline: 'none' }} />
             <input placeholder="CVC" defaultValue="•••" style={{ padding: '8px 10px', borderRadius: '7px', border: '1.5px solid #e5e7eb', fontSize: '11px', outline: 'none' }} />
           </div>
@@ -362,7 +362,7 @@ export default function HowItWorksSpaces() {
 
       {/* Step content */}
       <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '48px 24px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '60px', alignItems: 'start' }}>
+        <div className="split-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '60px', alignItems: 'start' }}>
           {/* Left: explanation */}
           <div>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 14px', borderRadius: '100px', background: step.bg, marginBottom: '20px' }}>

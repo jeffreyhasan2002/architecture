@@ -298,7 +298,7 @@ export default function AiFeaturesPage() {
 
         {/* ═══════════════════ BUDGET ESTIMATOR ════════════════════════════════ */}
         {activeFeature === 'budget' && (
-          <div style={{ display: 'grid', gridTemplateColumns: '380px 1fr', gap: '24px', alignItems: 'start' }}>
+          <div className="split-2col" style={{ display: 'grid', gridTemplateColumns: '380px 1fr', gap: '24px', alignItems: 'start' }}>
             {/* Left */}
             <div>
               <div style={{ display: 'flex', gap: '10px', alignItems: 'center', marginBottom: '16px' }}>
@@ -360,7 +360,7 @@ export default function AiFeaturesPage() {
                   <h3 style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 800, fontSize: '1.15rem', letterSpacing: '-0.02em', marginBottom: '20px', color: 'var(--color-ink)' }}>
                     {WIZARD_STEPS[wizardStep].q}
                   </h3>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                  <div className="split-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
                     {WIZARD_STEPS[wizardStep].options.map(opt => (
                       <button key={opt.val} onClick={() => pickWizardOption(opt.val)} style={{
                         padding: '16px 14px', borderRadius: '14px', background: 'var(--color-bg)',
@@ -412,7 +412,7 @@ export default function AiFeaturesPage() {
 
                   {/* Breakdown table */}
                   <div style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 700, fontSize: '11px', color: 'var(--color-muted)', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Per-Service Breakdown</div>
-                  <div style={{ borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--color-hairline)', marginBottom: '18px' }}>
+                  <div className="table-scroll" style={{ borderRadius: '12px', overflowX: 'auto', border: '1px solid var(--color-hairline)', marginBottom: '18px' }}>
                     <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: 'var(--font-inter)', fontSize: '12px' }}>
                       <thead>
                         <tr style={{ background: 'var(--color-bg)' }}>
@@ -459,7 +459,7 @@ export default function AiFeaturesPage() {
 
         {/* ═══════════════════ BRIEF PARSER ════════════════════════════════════ */}
         {activeFeature === 'brief-parser' && (
-          <div style={{ display: 'grid', gridTemplateColumns: '380px 1fr', gap: '24px', alignItems: 'start' }}>
+          <div className="split-2col" style={{ display: 'grid', gridTemplateColumns: '380px 1fr', gap: '24px', alignItems: 'start' }}>
             <div>
               <div style={{ display: 'flex', gap: '10px', alignItems: 'center', marginBottom: '16px' }}>
                 <span style={{ fontSize: '28px' }}>📋</span>
@@ -535,7 +535,7 @@ export default function AiFeaturesPage() {
                     </div>
 
                     {/* Brand + Product */}
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '14px' }}>
+                    <div className="split-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '14px' }}>
                       {[
                         { label: 'Brand',   val: PARSED_BRIEF.brand },
                         { label: 'Product', val: PARSED_BRIEF.product },
@@ -564,7 +564,7 @@ export default function AiFeaturesPage() {
                     </div>
 
                     {/* Key terms grid */}
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', marginBottom: '14px' }}>
+                    <div className="split-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', marginBottom: '14px' }}>
                       {[
                         { label: 'Usage Rights',  val: PARSED_BRIEF.usage_rights,  flag: '⚠️' },
                         { label: 'Exclusivity',    val: PARSED_BRIEF.exclusivity,   flag: '📌' },
@@ -594,7 +594,7 @@ export default function AiFeaturesPage() {
 
         {/* ═══════════════════ FIT SCORE ═══════════════════════════════════════ */}
         {activeFeature === 'fit-score' && (
-          <div style={{ display: 'grid', gridTemplateColumns: '380px 1fr', gap: '24px', alignItems: 'start' }}>
+          <div className="split-2col" style={{ display: 'grid', gridTemplateColumns: '380px 1fr', gap: '24px', alignItems: 'start' }}>
             <div>
               <div style={{ display: 'flex', gap: '10px', alignItems: 'center', marginBottom: '16px' }}>
                 <span style={{ fontSize: '28px' }}>📊</span>
@@ -716,7 +716,7 @@ export default function AiFeaturesPage() {
 
         {/* ═══════════════════ STYLE TAGGER ════════════════════════════════════ */}
         {activeFeature === 'style-tagger' && (
-          <div style={{ display: 'grid', gridTemplateColumns: '380px 1fr', gap: '24px', alignItems: 'start' }}>
+          <div className="split-2col" style={{ display: 'grid', gridTemplateColumns: '380px 1fr', gap: '24px', alignItems: 'start' }}>
             <div>
               <div style={{ display: 'flex', gap: '10px', alignItems: 'center', marginBottom: '16px' }}>
                 <span style={{ fontSize: '28px' }}>🏷️</span>
@@ -817,7 +817,7 @@ export default function AiFeaturesPage() {
 
         {/* ═══════════════════ AI CONCIERGE ════════════════════════════════════ */}
         {activeFeature === 'concierge' && (
-          <div style={{ display: 'grid', gridTemplateColumns: '380px 1fr', gap: '24px', alignItems: 'start' }}>
+          <div className="split-2col" style={{ display: 'grid', gridTemplateColumns: '380px 1fr', gap: '24px', alignItems: 'start' }}>
             <div>
               <div style={{ display: 'flex', gap: '10px', alignItems: 'center', marginBottom: '16px' }}>
                 <span style={{ fontSize: '28px' }}>🤖</span>
@@ -899,7 +899,7 @@ export default function AiFeaturesPage() {
                         <span style={{ width: '28px', height: '28px', borderRadius: '50%', background: 'linear-gradient(135deg,#4F46E5,#7C3AED)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '13px', flexShrink: 0 }}>🤖</span>
                         <div style={{ padding: '12px 14px', borderRadius: '4px 14px 14px 14px', background: 'var(--color-surface)', border: '1px solid var(--color-hairline)', flex: 1 }}>
                           <div style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 700, fontSize: '11px', color: '#4F46E5', marginBottom: '8px' }}>📋 Event parameters extracted</div>
-                          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4px' }}>
+                          <div className="split-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4px' }}>
                             {Object.entries(msg.params as Record<string,string>).map(([k, v]) => (
                               <div key={k} style={{ fontFamily: 'var(--font-inter)', fontSize: '11px', color: 'var(--color-muted)' }}>
                                 <span style={{ fontWeight: 700, color: '#4F46E5' }}>{k}:</span> {v}

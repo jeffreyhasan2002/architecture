@@ -206,7 +206,7 @@ export default function CreatorPage() {
             )}
 
             {dashTab === 'analytics' && (
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+              <div className="split-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
                 {[
                   { label: 'Search Appearances (30d)', val: '12,840', trend: '+22%', icon: '🔍' },
                   { label: 'Profile Views (30d)', val: '4,281', trend: '+12%', icon: '👁️' },

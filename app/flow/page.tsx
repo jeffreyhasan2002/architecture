@@ -110,7 +110,7 @@ export default function FlowOverviewPage() {
       <section style={{ padding: '0 24px 64px', maxWidth: '1100px', margin: '0 auto' }}>
         <h3 style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 700, fontSize: '1.1rem', marginBottom: '4px' }}>Screen by screen: what each page's one job is</h3>
         <p style={{ fontSize: '13px', color: 'var(--color-muted)', marginBottom: '16px' }}>Every screen exists to do exactly one thing well — this is the discipline that keeps a multi-role platform from feeling like eight different products glued together.</p>
-        <div style={{ borderRadius: '14px', overflow: 'hidden', border: '1px solid var(--color-hairline)', background: 'var(--color-surface)' }}>
+        <div className="table-scroll" style={{ borderRadius: '14px', overflowX: 'auto', border: '1px solid var(--color-hairline)', background: 'var(--color-surface)' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
             <thead>
               <tr style={{ background: 'var(--color-bg)' }}>

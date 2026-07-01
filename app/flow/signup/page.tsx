@@ -151,7 +151,7 @@ export default function FlowSignupPage() {
 
       {/* Identity + token model */}
       <section style={{ padding: '0 24px 56px', maxWidth: '1100px', margin: '0 auto' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+        <div className="split-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
           <div style={{ background: 'var(--color-surface)', border: '1px solid var(--color-hairline)', borderRadius: '16px', padding: '24px' }}>
             <h3 style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 700, fontSize: '1rem', marginBottom: '14px' }}>Identity methods</h3>
             {[
@@ -203,7 +203,7 @@ export default function FlowSignupPage() {
           })}
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', alignItems: 'start' }}>
+        <div className="split-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', alignItems: 'start' }}>
           <div>
             <div style={{ padding: '12px 16px', borderRadius: '10px', background: r.bg, border: `1px solid ${r.color}33`, fontSize: '12.5px', color: r.color, fontWeight: 600, marginBottom: '18px', lineHeight: 1.6 }}>{r.note}</div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>

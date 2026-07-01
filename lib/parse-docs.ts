@@ -207,6 +207,7 @@ export function markdownToHtml(md: string): string {
         // rows[0] = headers, rows[1] = separator, rows[2+] = data
         const headers = rows[0]
         const dataRows = rows.slice(2)
+        out.push('<div class="table-scroll">')
         out.push('<table>')
         out.push('<thead><tr>')
         headers.forEach(h => out.push(`<th>${renderInline(h)}</th>`))
@@ -221,6 +222,7 @@ export function markdownToHtml(md: string): string {
           out.push('</tbody>')
         }
         out.push('</table>')
+        out.push('</div>')
       }
       continue
     }

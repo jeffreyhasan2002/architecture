@@ -233,7 +233,7 @@ export default function HomePage() {
         </div>
 
         {VERTICALS.map(v => v.id === activeTab && (
-          <div key={v.id} style={{ background: v.bg, borderRadius: '20px', padding: '40px', border: `1.5px solid ${v.color}22`, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px', alignItems: 'center' }}>
+          <div className="split-2col" key={v.id} style={{ background: v.bg, borderRadius: '20px', padding: '40px', border: `1.5px solid ${v.color}22`, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px', alignItems: 'center' }}>
             <div>
               <div style={{ fontSize: '48px', marginBottom: '16px' }}>{v.icon}</div>
               <h3 style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 800, fontSize: '1.6rem', letterSpacing: '-0.025em', color: v.color, marginBottom: '12px' }}>{v.label}</h3>

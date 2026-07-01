@@ -92,7 +92,7 @@ function GearBrowseMockup() {
       <div style={{ display: 'flex', gap: '5px', marginBottom: '10px' }}>
         {[['all','🌐','All'], ['shop','🏪','Shop'], ['individual','🤝','Individual']].map(([v,icon,l]) => <button key={v} onClick={() => setOwner(v)} style={{ flex: 1, padding: '5px', borderRadius: '7px', border: `1.5px solid ${owner === v ? '#6D5BD0' : '#e5e7eb'}`, background: owner === v ? 'rgba(109,91,208,0.08)' : '#fff', color: owner === v ? '#6D5BD0' : '#6b7280', fontSize: '10px', fontWeight: 600, cursor: 'pointer' }}>{icon} {l}</button>)}
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+      <div className="split-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
         {items.map(item => (
           <div key={item.name} style={{ borderRadius: '9px', border: '1px solid #e5e7eb', overflow: 'hidden' }}>
             <div style={{ height: '55px', background: item.gradient, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', fontSize: '22px' }}>
@@ -184,7 +184,7 @@ function GearPeriodMockup() {
         ))}
       </div>
       {period === 'day' && (
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', marginBottom: '14px' }}>
+        <div className="split-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', marginBottom: '14px' }}>
           {[['Days', days, setDays, [1,2,3,4,5,6,7]], ['Qty', qty, setQty, [1,2,3]]].map(([label, val, setter, opts]: any) => (
             <div key={label}>
               <label style={{ fontSize: '10px', fontWeight: 600, color: '#6b7280', display: 'block', marginBottom: '4px' }}>{label}</label>
@@ -345,7 +345,7 @@ export default function HowItWorksGear() {
 
       {/* Content */}
       <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '48px 24px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '60px', alignItems: 'start' }}>
+        <div className="split-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '60px', alignItems: 'start' }}>
           <div>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 14px', borderRadius: '100px', background: step.bg, marginBottom: '20px' }}>
               <span style={{ fontSize: '16px' }}>{step.icon}</span>

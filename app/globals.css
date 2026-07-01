@@ -582,3 +582,13 @@ body {
   .sidebar.open { transform: translateX(0); }
   .toc { display: none; }
 }
+
+/* ─── Responsive utilities: feature/flow spec pages + doc tables ─── */
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+@media (max-width: 900px) {
+  .split-2col { grid-template-columns: 1fr !important; }
+}
+@media (max-width: 640px) {
+  .table-scroll table { min-width: 520px; }
+  .split-2col { gap: 16px !important; }
+}

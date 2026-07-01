@@ -204,7 +204,7 @@ export default function FlowRolesPage() {
           <p style={{ fontSize: '13px', color: 'var(--color-muted)' }}>{r.tagline}</p>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', alignItems: 'start', marginBottom: '24px' }}>
+        <div className="split-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', alignItems: 'start', marginBottom: '24px' }}>
           <div style={{ borderRadius: '14px', border: '1px solid var(--color-hairline)', overflow: 'hidden', background: 'var(--color-surface)' }}>
             <MermaidDiagram code={r.mermaid} id={`role-journey-${activeRole}`} />
           </div>

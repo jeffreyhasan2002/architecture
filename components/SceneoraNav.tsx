@@ -399,7 +399,7 @@ export default function SceneoraNav({ active }: { active?: string }) {
       <style>{`
         @keyframes fadeInUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
         .sceneora-mobile-btn { display: none; }
-        @media (max-width: 768px) {
+        @media (max-width: 1100px) {
           .sceneora-desktop-nav { display: none !important; }
           .sceneora-mobile-btn { display: block; }
         }

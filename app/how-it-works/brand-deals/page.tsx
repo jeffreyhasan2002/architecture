@@ -136,7 +136,7 @@ export default function HowItWorksBrandDeals() {
         </div>
 
         {/* Active step detail */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '28px', alignItems: 'start' }}>
+        <div className="split-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '28px', alignItems: 'start' }}>
           <div style={{ padding: '32px', borderRadius: '20px', background: STEPS[activeStep].bg, border: `1px solid ${STEPS[activeStep].color}33` }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
               <span style={{ width: '52px', height: '52px', borderRadius: '14px', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '26px', boxShadow: '0 2px 12px rgba(0,0,0,0.08)' }}>{STEPS[activeStep].icon}</span>
@@ -249,7 +249,7 @@ export default function HowItWorksBrandDeals() {
 
       {/* CTA split */}
       <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 24px 80px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+        <div className="split-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
           <div style={{ padding: '32px', borderRadius: '20px', background: 'linear-gradient(135deg, #ECFEFF, #cffafe)', border: '1px solid rgba(8,145,178,0.2)' }}>
             <div style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 800, fontSize: '1.2rem', color: '#0891B2', marginBottom: '8px' }}>🏢 You're a Brand</div>
             <p style={{ fontFamily: 'var(--font-inter)', fontSize: '13px', color: '#164e63', lineHeight: 1.6, marginBottom: '20px' }}>Find the right creators, send structured briefs, and pay only into escrow. No influencer agencies. No ambiguous invoices.</p>
