@@ -13,9 +13,9 @@ const SITEMAP = `flowchart TD
     ROOT --> ADMIN[Admin console]
 
     PUB --> P1[Home] & P2[About] & P3[Pricing] & P4["Trust & Safety"] & P5[Legal]
-    DISC --> D1["Search results"] & D2["City + service SEO pages"] & D3["Creator profile"] & D4["Content-creator profile"] & D5["Budget Estimator"]
+    DISC --> D1["Search results"] & D2["City + service SEO pages"] & D3["Creator profile"] & D4["Content-creator profile"] & D5["Budget Estimator"] & D6["Space listings"] & D7["Gear listings"]
     ACC --> A1[Register] & A2["Login / OTP"] & A3["Role selection"] & A4[Settings]
-    DASH --> C1["Client dashboard"] & C2["Creator dashboard"] & C3["Content-creator dashboard"] & C4["Brand dashboard"] & C5["Agency dashboard"]
+    DASH --> C1["Client dashboard"] & C2["Creator dashboard"] & C3["Content-creator dashboard"] & C4["Brand dashboard"] & C5["Agency dashboard"] & C6["Space Owner dashboard"] & C7["Gear Owner dashboard"]
     ADMIN --> AD1["KYC + moderation"] & AD2[Disputes] & AD3[Finance] & AD4["Audit log"]`
 
 const MASTER_FLOW = `flowchart TD
@@ -50,6 +50,19 @@ const MASTER_FLOW = `flowchart TD
 
     REVIEW --> REPEAT["Repeat booking / referral"]
     REPEAT --> BROWSE`
+
+const VERTICALS_FLOW = `flowchart LR
+    subgraph V["Three parallel verticals — same rails underneath"]
+        direction TB
+        C["📷 Creator Bookings<br/>photographers, videographers, MUAs"]
+        S["🏛️ Space Rentals<br/>studios & outdoor locations, by the hour"]
+        G["🎥 Gear Rentals<br/>cameras, lenses, lighting — by day/week"]
+    end
+    C --> E["Same escrow engine"]
+    S --> E
+    G --> E
+    E --> T["Same trust score + reviews"]
+    T --> R["Same search ranking flywheel"]`
 
 const SCREENS = [
   { page: 'Home', job: 'Route the visitor to search or story', els: 'Search bar, top cities/services, trust proof, CTA' },
@@ -91,6 +104,12 @@ export default function FlowOverviewPage() {
           <p style={{ fontSize: '0.95rem', maxWidth: '640px', margin: '0 auto', lineHeight: 1.7, opacity: 0.92 }}>
             Every completed booking feeds the <strong>trust score</strong>, which improves <strong>search ranking</strong>, which drives <strong>more discovery</strong>, which drives <strong>more bookings</strong>. Whatever role you're looking at below, its job is either to feed this loop or remove friction from it.
           </p>
+        </div>
+
+        <h3 style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 700, fontSize: '1.1rem', marginBottom: '4px' }}>Three verticals, one trust engine</h3>
+        <p style={{ fontSize: '13px', color: 'var(--color-muted)', marginBottom: '16px' }}>The flywheel above isn't just for creator bookings. Renting a studio by the hour or a lens by the day runs through the exact same escrow, trust score, and ranking system — see the role-by-role detail on <Link href="/flow/roles" style={{ color: '#059669', fontWeight: 700 }}>Role Journeys</Link>.</p>
+        <div style={{ borderRadius: '16px', border: '1px solid var(--color-hairline)', overflow: 'hidden', background: 'var(--color-surface)', marginBottom: '48px' }}>
+          <MermaidDiagram code={VERTICALS_FLOW} id="verticals-flow" />
         </div>
 
         <h3 style={{ fontFamily: 'var(--font-space-grotesk)', fontWeight: 700, fontSize: '1.1rem', marginBottom: '4px' }}>The master flow — whole site, one picture</h3>

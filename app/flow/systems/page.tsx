@@ -30,19 +30,21 @@ const SYSTEMS: Record<string, {
     linkOut: { href: '/flow/signup', label: 'See the full sign-up & role-routing flow →' },
   },
   payments: {
-    icon: '💳', color: '#059669', bg: '#ECFDF5', title: 'Payments & Escrow', tagline: 'One state machine, every booking type', usedBy: 'Client, Creator, Brand, Agency',
+    icon: '💳', color: '#059669', bg: '#ECFDF5', title: 'Payments & Escrow', tagline: 'One state machine, every booking type', usedBy: 'Client, Creator, Brand, Agency, Space/Gear renters & owners',
     mermaid: `flowchart TD
-    INIT["Initiate booking"] --> ORD["Razorpay order + idempotency key"]
-    ORD --> CKO["Checkout: UPI/card/EMI/split"] --> WH["Webhook — HMAC verified"]
-    WH --> ESC["Advance in escrow → CONFIRMED"]
-    ESC --> DEL["Delivery confirmed"]
+    INIT["Initiate booking / rental"] --> ORD["Razorpay order + idempotency key"]
+    ORD --> CKO["Checkout: UPI/card/EMI/split/deposit"] --> WH["Webhook — HMAC verified"]
+    WH --> ESC["Advance (+ deposit if gear/space) in escrow → CONFIRMED"]
+    ESC --> DEL["Delivery / shoot / return confirmed"]
     DEL --> FEE["Compute take-rate + GST + TCS/TDS"]
     FEE --> PO["Split payout T+1"] --> INV["Invoices/receipts"]
+    DEL -.->|"gear/space: 48h inspection"| DEP["Deposit auto-released or claimed"]
     ESC -.->|dispute| DIS["Trust officer ruling"] --> REF["Refund / split"]`,
     points: [
-      'A regular booking, a brand deal, a milestone-escrow booking, and a split-payment booking all resolve to the same underlying escrow → release state machine.',
+      'A regular booking, a brand deal, a milestone-escrow booking, a space-hourly booking, and a gear-rental deposit all resolve to the same underlying escrow → release state machine.',
+      'The gear/space deposit is just a second escrow hold on the same booking — released automatically after a 48h inspection window unless the owner files a claim.',
       'Every payment mutation is idempotent — duplicate webhook or duplicate client retry produces exactly one charge.',
-      'Balance only ever releases after DELIVERY_CONFIRMED, never before — this is the actual trust guarantee, not a UI promise.',
+      'Balance only ever releases after delivery/shoot/return is confirmed, never before — this is the actual trust guarantee, not a UI promise.',
     ],
     linkOut: { href: '/features/platform', label: 'See Trust Infrastructure + Milestone/Split/EMI specs →' },
   },
@@ -77,7 +79,7 @@ const SYSTEMS: Record<string, {
     ],
   },
   disputes: {
-    icon: '⚖️', color: '#DC2626', bg: '#FEF2F2', title: 'Dispute & Trust', tagline: 'The mechanism behind every trust score', usedBy: 'Client, Creator, Content Creator, Brand, Trust Officer',
+    icon: '⚖️', color: '#DC2626', bg: '#FEF2F2', title: 'Dispute & Trust', tagline: 'The mechanism behind every trust score', usedBy: 'Client, Creator, Content Creator, Brand, Space/Gear renters & owners, Trust Officer',
     mermaid: `flowchart TD
     D["Dispute raised"] --> EV["Evidence window — 72h"] --> UR["Under review — Trust Officer"]
     UR --> RC["Refund client"]
@@ -85,7 +87,7 @@ const SYSTEMS: Record<string, {
     UR --> PA["Partial resolution"]
     RC & RP & PA --> SC["Reliability + trust score updated"]`,
     points: [
-      'Any role that can pay or be paid can raise a dispute from any post-advance state.',
+      'Any role that can pay or be paid can raise a dispute from any post-advance state — including a gear-damage claim filed by an owner during the 48h inspection window.',
       'Only a Trust Officer or Admin can rule on it — this is the one authority self-registered roles never get, by design (see sign-up flow).',
       'Every ruling updates the trust score, which feeds straight back into the search-ranking flywheel (see Flow Overview).',
     ],

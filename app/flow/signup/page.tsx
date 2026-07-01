@@ -12,19 +12,23 @@ const UNIFIED_SIGNUP = `flowchart TD
     V -->|Email| EM["Email link / Google / Apple OAuth"]
     OTP --> U["users row created — status: pending_profile"]
     EM --> U
-    U --> ROLE["Role selection screen<br/>(Client / Creator / Content Creator / Brand / Agency)"]
+    U --> ROLE["Role selection screen<br/>(Client / Creator / Content Creator / Brand / Agency / Space Owner / Gear Owner)"]
 
     ROLE -->|Client| ORB1["No extra step — ready to search & book"]
     ROLE -->|Creator| ORB2["Profile + portfolio + KYC + availability + plan"]
     ROLE -->|"Content Creator"| ORB3["Profile + rate card + niches + KYC + plan"]
     ROLE -->|Brand| ORB4["Company details + verification + team invite"]
     ROLE -->|Agency/Studio| ORB5["Company + team invite + roster setup"]
+    ROLE -->|"Space Owner"| ORB6["List space + photos + property KYC + pricing"]
+    ROLE -->|"Gear Owner"| ORB7["List gear + photos + ownership KYC + deposit"]
 
     ORB1 --> TOK["Issue access (15m) + refresh (7d) JWT"]
     ORB2 --> TOK
     ORB3 --> TOK
     ORB4 --> TOK
     ORB5 --> TOK
+    ORB6 --> TOK
+    ORB7 --> TOK
     TOK --> DASH["Land on role-specific dashboard"]
 
     INV["Moderator / Trust Officer / Admin / Super Admin"] -.->|"invite-only — never via this form"| PROV["Provisioned by Super Admin (§18)"]
@@ -109,6 +113,36 @@ const ROLE_ONBOARDING: Record<string, { icon: string; color: string; bg: string;
     ],
     mermaid: `flowchart TD
     A["Company details"] --> B["Invite team"] --> C["Build roster"] --> D["Accept projects"]`,
+  },
+  'space-owner': {
+    icon: '🏛️', color: '#0F62FE', bg: '#EFF4FF', title: 'Space Owner',
+    note: 'A parallel listing vertical, not in the core role catalogue — modeled as a Creator subtype with its own onboarding wizard.',
+    steps: [
+      { title: 'List your space', desc: 'Type (indoor/outdoor/home), location, amenities, house rules.' },
+      { title: 'Upload photos', desc: 'AI auto-tags mood + use-case (e.g. "fashion-ready") for discoverability.' },
+      { title: 'KYC + property verification', desc: 'Aadhaar + property proof (24–48h) → verified badge, up to 2× ranking boost.' },
+      { title: 'Set pricing + Instant Book', desc: 'Hourly rate, blocked dates, optional Google Calendar sync.' },
+      { title: 'Go live', desc: 'Free (1 listing) → Pro → Studio plans gate instant book + featured placement.' },
+    ],
+    mermaid: `flowchart TD
+    A["Register → Space Owner"] --> B["List space + amenities"]
+    B --> C["Photos → AI tags"] --> D["KYC + property proof"]
+    D --> E["Pricing + Instant Book"] --> F["Live in search"]`,
+  },
+  'gear-owner': {
+    icon: '🔧', color: '#7C3AED', bg: '#F5F3FF', title: 'Gear Owner',
+    note: 'Same pattern as Space Owner — a Creator subtype, distinguished by Shop vs. Individual at signup.',
+    steps: [
+      { title: 'Choose Shop or Individual', desc: 'Shops get bulk upload + API access on higher plans.' },
+      { title: 'List your gear', desc: 'Brand, model, specs, condition grade, real photos (not stock).' },
+      { title: 'KYC + ownership proof', desc: 'Aadhaar + invoice/serial photo (24–48h) → verified badge.' },
+      { title: 'Set pricing + deposit', desc: 'Day/week rates + a refundable damage deposit amount.' },
+      { title: 'Go live', desc: 'Free (2 items) → Pro (20, instant book) → Shop (unlimited, API access).' },
+    ],
+    mermaid: `flowchart TD
+    A["Register → Gear Owner (Shop/Individual)"] --> B["List gear + condition + photos"]
+    B --> C["KYC + ownership proof"] --> D["Pricing + damage deposit"]
+    D --> E["Manage availability"] --> F["Live in search"]`,
   },
 }
 
